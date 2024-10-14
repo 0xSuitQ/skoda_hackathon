@@ -16,16 +16,15 @@ def generate_and_verify_zkproof(request):
             if not driving_data:
                 return JsonResponse({"status": "error", "message": "No driving data found"}, status=404)
 
-            # Step 2: Serialize model data to JSON
+
             driving_data_dict = {
                 "overall_average_travel_time_in_min": driving_data.overall_average_travel_time_in_min,
                 "overall_average_fuel_consumption": driving_data.overall_average_fuel_consumption,
                 "overall_average_electric_consumption": driving_data.overall_average_electric_consumption,
                 "overall_average_speed_in_kmph": driving_data.overall_average_speed_in_kmph,
                 "total_distance_traveled": driving_data.total_distance_traveled,
-                "number_of_hard_brakes": driving_data.number_of_hard_brakes,
-                "number_of_night_drives": driving_data.number_of_night_drives,
-                "number_of_rash_drives": driving_data.number_of_rash_drives
+                "number_of_hard_brakes_per_1000km": driving_data.number_of_hard_brakes_per_1000km,
+                "number_of_rash_drives_per_1000km": driving_data.number_of_rash_drives_per_1000km
             }
 
             # Step 3: Save JSON data to a temporary file
