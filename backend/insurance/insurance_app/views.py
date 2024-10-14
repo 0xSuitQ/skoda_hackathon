@@ -55,3 +55,11 @@ def generate_and_verify_zkproof(request):
             return JsonResponse({"status": "error", "message": str(e)}, status=500)
     
     return JsonResponse({"status": "error", "message": "Invalid request method"}, status=400)
+
+
+def home(request):
+    return render(request, 'index.html')
+
+# def insurance():
+# 	return render_template("insurance.html", user_insurance = active_insurance_company,
+# 						companies = companies)
