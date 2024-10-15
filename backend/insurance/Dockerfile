@@ -13,6 +13,9 @@ COPY . .
 
 RUN chmod +x /entrypoint.sh
 
+# RUN chmod +x /code/bin/host
+# RUN chmod +x /code/bin/verifier
+
 EXPOSE 8000
 
 ENTRYPOINT ["/entrypoint.sh"]
