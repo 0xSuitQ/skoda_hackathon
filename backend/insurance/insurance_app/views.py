@@ -1,13 +1,35 @@
 import json
 import os
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 from django.http import JsonResponse
 import subprocess
 from .models import DrivingData
+from insurance_app.site_utils.user import UserProfile
+from insurance_app.site_utils.companies import Companies, InsuranceCompany
 
 GENERATE_BINARY_PATH = "/path/to/first_binary"
 VALIDATE_BINARY_PATH = "/path/to/second_binary"
+
+companies = Companies()
+offers = [
+    {
+        "title": "Comfort Plan",
+        "description": "Our Comfort Plan provides essential coverage for your everyday needs. It includes basic protection for your vehicle and third-party liability, ensuring peace of mind for your daily commute."
+    },
+    {
+        "title": "Plus Plan",
+        "description": "The Plus Plan offers enhanced protection beyond the basics. It includes comprehensive coverage for your vehicle, plus additional benefits like roadside assistance and a courtesy car. This plan is perfect for those who want extra security without breaking the bank."
+    },
+    {
+        "title": "Extra Plan",
+        "description": "Our Extra Plan takes your coverage to the next level with premium features. It includes all the benefits of the Plus Plan, along with coverage for personal belongings in your vehicle and enhanced medical expenses. This plan is ideal for families and those who use their vehicle extensively."
+    },
+    {
+        "title": "Premium Plan",
+        "description": "The Premium Plan is our most comprehensive offering, designed for those who want the ultimate in protection and service. It includes all lower-tier benefits plus unique features like zero depreciation cover and protection against uninsured drivers. With 24/7 premium support, this plan ensures you're always taken care of, no matter what happens."
+    }
+]
 
 def generate_and_verify_zkproof(request):
     if request.method == "POST":
@@ -60,6 +82,16 @@ def generate_and_verify_zkproof(request):
 def home(request):
     return render(request, 'index.html')
 
-# def insurance():
-# 	return render_template("insurance.html", user_insurance = active_insurance_company,
-# 						companies = companies)
+def insurance(request):
+    profile = UserProfile()
+    return render(request, "insurance.html", {
+        'user': UserProfile,
+        'companies': companies.companies
+    })
+
+def insurance_offer(request, company_id):
+    return render(request, "Insurance_offer.html", {
+        'company_id': company_id,
+        'company': companies.companies[company_id],
+        'offers': offers
+    })
