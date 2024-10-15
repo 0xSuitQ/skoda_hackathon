@@ -1,7 +1,5 @@
-{% from 'partials/company_card.html' import company_card %}
-
 {% extends "partials/base.html" %}
-
+{% include "partials/company_card.html" %}
 
 
 {% block title %} 
@@ -19,23 +17,38 @@ Skoda Insurace
 		<h1> Skoda Insurance </h1>
 		</div>
 		<div class=" container-md skoda-box">
-				{% if user_insurance is not none %}
+				{% if user.user_insurance_id is not none %}
 				    <div class="container-md skoda-box-content">
 				        <h2 class="responsive-heading"> My insurance</h2>
 				    </div>
 				{% endif %}
 			</div>
 			<div class=" container-md skoda-box">
-				{% if user_insurance is not none %}
 				    <div class="container-md skoda-box-content">
 				        <h2 class="responsive-heading">Profile Settings</h2>
 				    </div>
-				{% endif %}
 			</div>
+
+	<div class="container-fluid pt-2">
+				<div class="d-flex flex-row justify-content-between border rounded p-1" style="background-color: #f8f9fa;">
+					<div class="p-1 text-center flex-fill" style="border-right: 1px solid #dee2e6;">
+						<h6 class="card-title" style="font-size: 0.8rem; margin: 0;">Compulsory Insurance</h6>
+					</div>
+					<div class="p-1 text-center flex-fill" style="background-color: #28a745; border-right: 1px solid #dee2e6;">
+						<h6 class="card-title" style="font-size: 0.8rem; margin: 0; color: white;">Accident Insurance</h6>
+					</div>
+					<div class="p-1 text-center flex-fill">
+						<h6 class="card-title" style="font-size: 0.8rem; margin: 0;">Supplementary Insurance</h6>
+					</div>
+				</div>			
+			</div>			
+
+
+
     		<div class="row row-cols-1 row-cols-md-3 g-4 pt-4">
-				{% for company in companies %}
-					{{ company_card(company) }}
-				{% endfor %}
+            {% for company in companies %}
+                {% include "partials/company_card.html" with company=company %}
+            {% endfor %}
 			</div>
 	</div>
 

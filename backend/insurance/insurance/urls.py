@@ -21,5 +21,6 @@ from insurance_app import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.home, name="home"),
+    path("insurance/", views.insurance, name="insurance"),
 	path("api/", include("insurance_app.urls")),
 ]
